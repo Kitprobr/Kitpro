@@ -1,0 +1,2293 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KitPro</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+  background:#070b12;
+  color:#fff;
+  min-height:100vh;
+}
+
+button,input,textarea,select{
+  font:inherit;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+}
+
+.app{
+  max-width:520px;
+  margin:auto;
+  min-height:100vh;
+  padding-bottom:82px;
+}
+
+header{
+  padding:22px 18px 12px;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo-icon{
+  width:48px;
+  height:48px;
+  border-radius:15px;
+  background:linear-gradient(135deg,#2589ff,#6b5cff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+}
+
+.logo h1{
+  font-size:25px;
+}
+
+.logo p{
+  color:#8491a5;
+  font-size:13px;
+  margin-top:3px;
+}
+
+.page{
+  display:none;
+  padding:8px 16px 25px;
+}
+
+.page.active{
+  display:block;
+}
+
+.hero{
+  background:
+    radial-gradient(circle at top right,#2589ff35,transparent 45%),
+    linear-gradient(145deg,#101a2b,#0c1421);
+  border:1px solid #1b2a40;
+  border-radius:24px;
+  padding:22px;
+  margin-bottom:16px;
+}
+
+.hero h2{
+  font-size:24px;
+  margin-bottom:7px;
+}
+
+.hero p{
+  color:#9ca9bb;
+  line-height:1.5;
+  font-size:14px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:18px;
+}
+
+.stat{
+  background:#0b1320;
+  border:1px solid #1b2a40;
+  border-radius:15px;
+  padding:13px 8px;
+  text-align:center;
+}
+
+.stat strong{
+  display:block;
+  font-size:20px;
+  color:#4da3ff;
+}
+
+.stat span{
+  color:#8190a5;
+  font-size:11px;
+}
+
+.section-title{
+  margin:18px 2px 10px;
+  font-size:17px;
+}
+
+.tools{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:11px;
+}
+
+.tool{
+  background:#0e1725;
+  border:1px solid #1b2a40;
+  border-radius:18px;
+  padding:17px 14px;
+  min-height:105px;
+  text-align:left;
+  color:#fff;
+}
+
+.tool:active{
+  transform:scale(.97);
+}
+
+.tool-icon{
+  font-size:25px;
+  margin-bottom:10px;
+}
+
+.tool strong{
+  display:block;
+  font-size:14px;
+}
+
+.tool span{
+  display:block;
+  color:#8290a4;
+  font-size:11px;
+  margin-top:4px;
+  line-height:1.35;
+}
+
+.card{
+  background:#0e1725;
+  border:1px solid #1b2a40;
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:13px;
+}
+
+.card h2{
+  font-size:19px;
+  margin-bottom:14px;
+}
+
+.back{
+  background:#101b2a;
+  color:#aab7c9;
+  padding:10px 14px;
+  border-radius:12px;
+  margin-bottom:13px;
+}
+
+label{
+  display:block;
+  color:#9aa8bb;
+  font-size:12px;
+  margin:10px 0 6px;
+}
+
+input,textarea,select{
+  width:100%;
+  background:#080e18;
+  color:#fff;
+  border:1px solid #223149;
+  border-radius:12px;
+  padding:12px;
+  outline:none;
+}
+
+textarea{
+  resize:vertical;
+  min-height:130px;
+}
+
+.row{
+  display:flex;
+  gap:10px;
+  margin-top:12px;
+}
+
+.row>*{
+  flex:1;
+  min-width:0;
+}
+
+.primary,
+.secondary,
+.danger{
+  padding:12px 14px;
+  border-radius:12px;
+  font-weight:bold;
+}
+
+.primary{
+  background:#2589ff;
+  color:#fff;
+}
+
+.secondary{
+  background:#172338;
+  color:#d7e2f1;
+}
+
+.danger{
+  background:#35151a;
+  color:#ff8792;
+}
+
+.result{
+  background:#080e18;
+  border:1px solid #1b2a40;
+  border-radius:13px;
+  padding:14px;
+  margin-top:12px;
+  color:#d9e5f5;
+  line-height:1.5;
+}
+
+.big-result{
+  font-size:27px;
+  font-weight:bold;
+  color:#4da3ff;
+}
+
+.empty{
+  text-align:center;
+  color:#758398;
+  padding:20px 5px;
+  font-size:13px;
+}
+
+.history-item,
+.task-item,
+.note-item{
+  background:#080e18;
+  border:1px solid #1b2a40;
+  border-radius:13px;
+  padding:12px;
+  margin-top:9px;
+}
+
+.history-item{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+}
+
+.history-expression{
+  color:#8d9bb0;
+  font-size:12px;
+}
+
+.history-result{
+  color:#fff;
+  font-weight:bold;
+  margin-top:3px;
+}
+
+.task-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.task-item.done{
+  opacity:.55;
+}
+
+.task-item.done .task-text{
+  text-decoration:line-through;
+}
+
+.task-check{
+  width:22px;
+  height:22px;
+  accent-color:#2589ff;
+}
+
+.task-text{
+  flex:1;
+  font-size:14px;
+}
+
+.small-btn{
+  padding:7px 9px;
+  border-radius:9px;
+  background:#172338;
+  color:#c8d5e5;
+  font-size:11px;
+}
+
+.note-title{
+  font-weight:bold;
+  margin-bottom:5px;
+}
+
+.note-preview{
+  color:#8190a5;
+  font-size:12px;
+  line-height:1.4;
+}
+
+.calc-display{
+  width:100%;
+  height:72px;
+  font-size:28px;
+  text-align:right;
+  padding:12px;
+  margin-bottom:10px;
+  background:#080e18;
+}
+
+.calc-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+}
+
+.calc-grid button{
+  height:58px;
+  border-radius:13px;
+  background:#162235;
+  color:#fff;
+  font-size:18px;
+  font-weight:bold;
+}
+
+.calc-grid .operator{
+  background:#203552;
+  color:#67adff;
+}
+
+.calc-grid .equal{
+  background:#2589ff;
+}
+
+.calc-grid .clear{
+  background:#3a171c;
+  color:#ff8992;
+}
+
+.grade-row{
+  display:grid;
+  grid-template-columns:1fr 90px;
+  gap:8px;
+  margin-top:8px;
+}
+
+.time{
+  text-align:center;
+  font-size:42px;
+  font-weight:bold;
+  letter-spacing:2px;
+  margin:25px 0;
+}
+
+.timer-buttons{
+  display:flex;
+  gap:10px;
+}
+
+.timer-buttons button{
+  flex:1;
+}
+
+.number-result{
+  font-size:30px;
+  font-weight:bold;
+  color:#4da3ff;
+  text-align:center;
+  padding:15px;
+}
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(520px,100%);
+  height:72px;
+  background:#0a111c;
+  border-top:1px solid #1b2a40;
+  display:flex;
+  z-index:20;
+  padding:7px 8px;
+}
+
+.nav-btn{
+  flex:1;
+  background:transparent;
+  color:#68788e;
+  border-radius:13px;
+  font-size:11px;
+}
+
+.nav-btn.active{
+  background:#132238;
+  color:#58aaff;
+}
+
+.nav-icon{
+  display:block;
+  font-size:20px;
+  margin-bottom:3px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">🧰</div>
+    <div>
+      <h1>KitPro</h1>
+      <p>Seu kit de ferramentas</p>
+    </div>
+  </div>
+</header>
+
+<section id="home" class="page active">
+
+  <div class="hero">
+    <h2>KitPro</h2>
+    <p>
+      Ferramentas úteis para cálculos,
+      estudos, organização e tarefas do dia a dia.
+    </p>
+
+    <div class="stats">
+      <div class="stat">
+        <strong id="statTasks">0</strong>
+        <span>Tarefas</span>
+      </div>
+
+      <div class="stat">
+        <strong id="statNotes">0</strong>
+        <span>Notas</span>
+      </div>
+
+      <div class="stat">
+        <strong>OFF</strong>
+        <span>Offline</span>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="section-title">🛠️ Ferramentas</h3>
+
+  <div class="tools">
+
+    <button class="tool" onclick="openPage('calculator')">
+      <div class="tool-icon">🧮</div>
+      <strong>Calculadora</strong>
+      <span>Cálculos rápidos + histórico</span>
+    </button>
+
+    <button class="tool" onclick="openPage('average')">
+      <div class="tool-icon">📚</div>
+      <strong>Média escolar</strong>
+      <span>Notas, pesos e próxima nota</span>
+    </button>
+
+    <button class="tool" onclick="openPage('percentage')">
+      <div class="tool-icon">📊</div>
+      <strong>Porcentagem</strong>
+      <span>Calcule porcentagens</span>
+    </button>
+
+    <button class="tool" onclick="openPage('interest')">
+      <div class="tool-icon">💰</div>
+      <strong>Juros</strong>
+      <span>Juros simples</span>
+    </button>
+
+    <button class="tool" onclick="openPage('age')">
+      <div class="tool-icon">🎂</div>
+      <strong>Idade e datas</strong>
+      <span>Descubra sua idade</span>
+    </button>
+
+    <button class="tool" onclick="openPage('numbers')">
+      <div class="tool-icon">🎲</div>
+      <strong>Números</strong>
+      <span>Gere números aleatórios</span>
+    </button>
+
+    <button class="tool" onclick="openPage('tasks')">
+      <div class="tool-icon">✅</div>
+      <strong>Tarefas</strong>
+      <span>Organize suas tarefas</span>
+    </button>
+
+    <button class="tool" onclick="openPage('notes')">
+      <div class="tool-icon">📝</div>
+      <strong>Notas</strong>
+      <span>Crie várias anotações</span>
+    </button>
+
+    <button class="tool" onclick="openPage('converter')">
+      <div class="tool-icon">🔄</div>
+      <strong>Conversor</strong>
+      <span>Converta unidades</span>
+    </button>
+
+    <button class="tool" onclick="openPage('timer')">
+      <div class="tool-icon">⏱️</div>
+      <strong>Cronômetro</strong>
+      <span>Controle seu tempo</span>
+    </button>
+
+  </div>
+</section>
+
+<section id="calculator" class="page">
+
+<button class="back" onclick="openPage('home')">← Voltar</button>
+
+<div class="card">
+
+<h2>🧮 Calculadora</h2>
+
+<input id="calcDisplay"
+class="calc-display"
+value="0"
+readonly>
+
+<div class="calc-grid">
+
+<button class="clear" onclick="calcClear()">C</button>
+<button onclick="calcInput('(')">(</button>
+<button onclick="calcInput(')')">)</button>
+<button class="operator" onclick="calcInput('/')">÷</button>
+
+<button onclick="calcInput('7')">7</button>
+<button onclick="calcInput('8')">8</button>
+<button onclick="calcInput('9')">9</button>
+<button class="operator" onclick="calcInput('*')">×</button>
+
+<button onclick="calcInput('4')">4</button>
+<button onclick="calcInput('5')">5</button>
+<button onclick="calcInput('6')">6</button>
+<button class="operator" onclick="calcInput('-')">−</button>
+
+<button onclick="calcInput('1')">1</button>
+<button onclick="calcInput('2')">2</button>
+<button onclick="calcInput('3')">3</button>
+<button class="operator" onclick="calcInput('+')">+</button>
+
+<button onclick="calcInput('0')">0</button>
+<button onclick="calcInput('.')">.</button>
+<button onclick="calcInput('%')">%</button>
+<button class="equal" onclick="calcEqual()">=</button>
+
+</div>
+</div>
+
+<div class="card">
+<h2>🕘 Histórico</h2>
+<div id="historyList"></div>
+</div>
+
+</section>
+
+<section id="average" class="page">
+
+<button class="back" onclick="openPage('home')">← Voltar</button>
+
+<div class="card">
+
+<h2>📚 Média escolar</h2>
+
+<p style="color:#8290a4;font-size:13px;">
+Adicione suas notas e pesos.
+</p>
+
+<div id="gradesContainer"></div>
+
+<button
+class="secondary"
+style="width:100%;margin-top:12px;"
+onclick="addGrade()">
++ Adicionar nota
+</button>
+
+<button
+class="primary"
+style="width:100%;margin-top:9px;"
+onclick="calculateAverage()">
+Calcular média
+</button>
+
+<div id="averageResult"></div>
+
+</div>
+</section>
+
+<section id="percentage" class="page">
+
+<button class="back" onclick="openPage('home')">← Voltar</button>
+
+<div class="card">
+
+<h2>📊 Porcentagem</h2>
+
+<label>Quanto é X% de Y?</label>
+
+<input id="percentX"
+type="number"
+placeholder="Ex: 20">
+
+<input
+id="percentY"
+type="number"
+placeholder="Ex: 200"
+style="margin-top:8px;">
+
+<button
+class="primary"
+style="width:100%;margin-top:10px;"
+onclick="calculatePercent()">
+Calcular
+</button>
+
+<div id="percentResult"></div>
+
+</div>
+
+<div class="card">
+
+<h2>📈 Aumento / desconto</h2>
+
+<label>Valor</label>
+
+<input
+id="changeValue"
+type="number"
+placeholder="Ex: 100">
+
+<label>Porcentagem</label>
+
+<input
+id="changePercent"
+type="number"
+placeholder="Ex: 15">
+
+<div class="row">
+
+<button
+class="primary"
+onclick="calculateChange(1)">
+Aumentar
+</button>
+
+<button
+class="secondary"
+onclick="calculateChange(-1)">
+Descontar
+</button>
+
+</div>
+
+<div id="changeResult"></div>
+
+</div>
+
+</section>
+
+<section id="interest" class="page">
+
+<button class="back" onclick="openPage('home')">← Voltar</button>
+
+<div class="card">
+
+<h2>💰 Juros simples</h2>
+
+<label>Capital</label>
+<input
+id="interestCapital"
+type="number"
+placeholder="Ex: 1000">
+
+<label>Taxa (%)</label>
+<input
+id="interestRate"
+type="number"
+placeholder="Ex: 2">
+
+<label>Tempo</label>
+<input
+id="interestTime"
+type="number"
+placeholder="Ex: 5">
+
+<button
+class="primary"
+style="width:100%;margin-top:12px;"
+onclick="calculateInterest()">
+Calcular
+</button>
+
+<div id="interestResult"></div>
+
+</div>
+</section>
+
+<section id="age" class="page">
+
+<button class="back" onclick="openPage('home')">← Voltar</button>
+
+<div class="card">
+
+<h2>🎂 Idade e datas</h2>
+
+<label>Data de nascimento</label>
+
+<input id="birthDate" type="date">
+
+<button
+class="primary"
+style="width:100%;margin-top:12px;"
+onclick="calculateAge()">
+Calcular idade
+</button>
+
+<div id="ageResult"></div>
+
+</div>
+</section>
+
+<section id="numbers" class="page">
+
+<button class="back" onclick="openPage('home')">← Voltar</button>
+
+<div class="card">
+
+<h2>🎲 Gerador de números</h2>
+
+<label>Mínimo</label>
+<input id="numberMin" type="number" value="1">
+
+<label>Máximo</label>
+<input id="numberMax" type="number" value="100">
+
+<button
+class="primary"
+style="width:100%;margin-top:12px;"
+onclick="generateNumber()">
+Gerar número
+</button>
+
+<div id="numberResult" class="result number-result">
+—
+</div>
+
+</div>
+</section>
+
+<section id="tasks" class="page">
+
+<button class="back" onclick="openPage('home')">← Voltar</button>
+
+<div class="card">
+
+<h2>✅ Tarefas</h2>
+
+<div class="row">
+
+<input
+id="taskInput"
+placeholder="Digite uma tarefa..."
+onkeydown="if(event.key==='Enter')addTask()">
+
+<button
+class="primary"
+onclick="addTask()">
+Adicionar
+</button>
+
+</div>
+
+<div id="taskList"></div>
+
+</div>
+</section>
+
+<section id="notes" class="page">
+
+<button class="back" onclick="openPage('home')">← Voltar</button>
+
+<div class="card">
+
+<h2>📝 Nova nota</h2>
+
+<label>Título</label>
+
+<input
+id="noteTitle"
+placeholder="Título da nota">
+
+<label>Conteúdo</label>
+
+<textarea
+id="noteContent"
+placeholder="Escreva aqui..."></textarea>
+
+<button
+class="primary"
+style="width:100%;margin-top:10px;"
+onclick="saveNote()">
+Salvar nota
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>📒 Minhas notas</h2>
+
+<div id="notesList"></div>
+
+</div>
+
+</section>
+
+<section id="converter" class="page">
+
+<button class="back" onclick="openPage('home')">← Voltar</button>
+
+<div class="card">
+
+<h2>🔄 Conversor</h2>
+
+<label>Tipo</label>
+
+<select
+id="conversionType"
+onchange="updateConverter()">
+
+<option value="length">Comprimento</option>
+<option value="mass">Massa</option>
+<option value="temperature">Temperatura</option>
+<option value="time">Tempo</option>
+
+</select>
+
+<label>Valor</label>
+
+<input
+id="convertValue"
+type="number"
+placeholder="Digite o valor">
+
+<label>De</label>
+
+<select id="convertFrom"></select>
+
+<label>Para</label>
+
+<select id="convertTo"></select>
+
+<button
+class="primary"
+style="width:100%;margin-top:12px;"
+onclick="convert()">
+Converter
+</button>
+
+<div id="convertResult"></div>
+
+</div>
+</section>
+
+<section id="timer" class="page">
+
+<button class="back" onclick="openPage('home')">← Voltar</button>
+
+<div class="card">
+
+<h2>⏱️ Cronômetro</h2>
+
+<div id="time" class="time">
+00:00:00
+</div>
+
+<div class="row timer-buttons">
+
+<button
+id="timerToggle"
+class="primary"
+onclick="toggleTimer()">
+Iniciar
+</button>
+
+<button
+class="secondary"
+onclick="resetTimer()">
+Zerar
+</button>
+
+</div>
+
+</div>
+</section>
+
+<section id="about" class="page">
+
+<button class="back" onclick="openPage('home')">← Voltar</button>
+
+<div class="card">
+
+<h2>ℹ️ Sobre o KitPro</h2>
+
+<p style="color:#8b99ac;line-height:1.7;font-size:14px;">
+O KitPro reúne várias ferramentas úteis em um único lugar.
+Ele foi pensado para funcionar de forma simples, rápida
+e também sem depender de internet.
+</p>
+
+<div class="result">
+<strong>KitPro</strong><br>
+Ferramentas • Estudos • Organização • Utilidades
+</div>
+
+</div>
+</section>
+
+</div>
+
+<nav class="bottom-nav">
+
+<button class="nav-btn active" onclick="openPage('home')">
+<span class="nav-icon">🏠</span>
+Início
+</button>
+
+<button class="nav-btn" onclick="openPage('calculator')">
+<span class="nav-icon">🧮</span>
+Calcular
+</button>
+
+<button class="nav-btn" onclick="openPage('tasks')">
+<span class="nav-icon">✅</span>
+Tarefas
+</button>
+
+<button class="nav-btn" onclick="openPage('notes')">
+<span class="nav-icon">📝</span>
+Notas
+</button>
+
+<button class="nav-btn" onclick="openPage('about')">
+<span class="nav-icon">ℹ️</span>
+Sobre
+</button>
+
+</nav>
+
+<script>
+
+/* =========================
+   ESTADO SEGURO
+========================= */
+
+const STORAGE_KEY = "kitpro_v2_state";
+
+function createDefaultState(){
+  return {
+    history:[],
+    tasks:[],
+    notes:[]
+  };
+}
+
+let state;
+
+try{
+
+  const saved =
+    localStorage.getItem(STORAGE_KEY);
+
+  state =
+    saved
+      ? JSON.parse(saved)
+      : createDefaultState();
+
+  if(!state || typeof state !== "object"){
+    state = createDefaultState();
+  }
+
+  if(!Array.isArray(state.history))
+    state.history = [];
+
+  if(!Array.isArray(state.tasks))
+    state.tasks = [];
+
+  if(!Array.isArray(state.notes))
+    state.notes = [];
+
+}catch(error){
+
+  state = createDefaultState();
+}
+
+function save(){
+
+  try{
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(state)
+    );
+  }catch(error){
+    console.log("Não foi possível salvar:",error);
+  }
+
+  updateStats();
+}
+
+
+/* =========================
+   NAVEGAÇÃO
+========================= */
+
+function openPage(id){
+
+  document.querySelectorAll(".page")
+    .forEach(page=>{
+      page.classList.remove("active");
+    });
+
+  const target =
+    document.getElementById(id);
+
+  if(!target) return;
+
+  target.classList.add("active");
+
+  document.querySelectorAll(".nav-btn")
+    .forEach(btn=>{
+      btn.classList.remove("active");
+    });
+
+  const nav =
+    document.querySelectorAll(".nav-btn");
+
+  if(id==="home")
+    nav[0].classList.add("active");
+
+  else if(
+    id==="calculator" ||
+    id==="average" ||
+    id==="percentage" ||
+    id==="interest" ||
+    id==="age" ||
+    id==="numbers"
+  )
+    nav[1].classList.add("active");
+
+  else if(id==="tasks")
+    nav[2].classList.add("active");
+
+  else if(id==="notes")
+    nav[3].classList.add("active");
+
+  else if(id==="about")
+    nav[4].classList.add("active");
+
+  window.scrollTo(0,0);
+}
+
+
+/* =========================
+   ESTATÍSTICAS
+========================= */
+
+function updateStats(){
+
+  const tasks =
+    document.getElementById("statTasks");
+
+  const notes =
+    document.getElementById("statNotes");
+
+  if(tasks){
+    tasks.textContent =
+      state.tasks.filter(t=>!t.done).length;
+  }
+
+  if(notes){
+    notes.textContent =
+      state.notes.length;
+  }
+}
+
+
+/* =========================
+   CALCULADORA
+========================= */
+
+let expression = "";
+let justCalculated = false;
+
+const calcDisplay =
+  document.getElementById("calcDisplay");
+
+function calcInput(value){
+
+  if(expression==="Erro"){
+    expression="";
+  }
+
+  justCalculated=false;
+
+  expression += value;
+
+  calcDisplay.value=expression;
+}
+
+function calcClear(){
+
+  expression="";
+  justCalculated=false;
+
+  calcDisplay.value="0";
+}
+
+function calcEqual(){
+
+  if(!expression || justCalculated)
+    return;
+
+  try{
+
+    const original=expression;
+
+    const safe =
+      expression.replace(/%/g,"/100");
+
+    let result =
+      Function(
+        '"use strict";return ('+
+        safe+
+        ')'
+      )();
+
+    result =
+      Number(
+        Number(result).toFixed(10)
+      );
+
+    state.history.unshift({
+      expression:original,
+      result:result
+    });
+
+    state.history =
+      state.history.slice(0,15);
+
+    save();
+
+    renderHistory();
+
+    expression=String(result);
+
+    calcDisplay.value=expression;
+
+    justCalculated=true;
+
+  }catch(error){
+
+    expression="Erro";
+    calcDisplay.value="Erro";
+    justCalculated=false;
+  }
+}
+
+function renderHistory(){
+
+  const box =
+    document.getElementById("historyList");
+
+  if(!state.history.length){
+
+    box.innerHTML =
+      '<div class="empty">Nenhuma conta ainda.</div>';
+
+    return;
+  }
+
+  box.innerHTML =
+    state.history.map((item,index)=>`
+
+      <div class="history-item">
+
+        <div>
+
+          <div class="history-expression">
+            ${escapeHTML(item.expression)}
+          </div>
+
+          <div class="history-result">
+            = ${item.result}
+          </div>
+
+        </div>
+
+        <button
+          class="small-btn"
+          onclick="useHistory(${index})">
+          Usar
+        </button>
+
+      </div>
+
+    `).join("");
+}
+
+function useHistory(index){
+
+  const item =
+    state.history[index];
+
+  if(!item) return;
+
+  expression =
+    String(item.result);
+
+  calcDisplay.value =
+    expression;
+
+  justCalculated=true;
+}
+
+
+/* =========================
+   MÉDIA
+========================= */
+
+function addGrade(value="",weight="1"){
+
+  const container =
+    document.getElementById("gradesContainer");
+
+  const div =
+    document.createElement("div");
+
+  div.className="grade-row";
+
+  div.innerHTML=`
+
+    <input
+      type="number"
+      step="0.01"
+      min="0"
+      max="10"
+      class="grade-input"
+      placeholder="Nota"
+      value="${value}">
+
+    <input
+      type="number"
+      step="0.1"
+      min="0"
+      class="weight-input"
+      placeholder="Peso"
+      value="${weight}">
+
+  `;
+
+  container.appendChild(div);
+}
+
+function calculateAverage(){
+
+  const grades =
+    [...document.querySelectorAll(".grade-input")];
+
+  const weights =
+    [...document.querySelectorAll(".weight-input")];
+
+  let total=0;
+  let weightTotal=0;
+
+  grades.forEach((input,index)=>{
+
+    const note =
+      Number(input.value);
+
+    const weight =
+      Number(weights[index].value)||1;
+
+    if(
+      input.value!=="" &&
+      Number.isFinite(note)
+    ){
+
+      total += note*weight;
+      weightTotal += weight;
+    }
+  });
+
+  const box =
+    document.getElementById("averageResult");
+
+  if(weightTotal===0){
+
+    box.innerHTML=
+      `<div class="result">
+        Digite pelo menos uma nota.
+      </div>`;
+
+    return;
+  }
+
+  const average =
+    total/weightTotal;
+
+  box.innerHTML=`
+
+    <div class="result">
+
+      <div class="big-result">
+        Média: ${average.toFixed(2)}
+      </div>
+
+      <div style="margin-top:7px;">
+        ${
+          average>=6
+          ? "✅ Média acima de 6."
+          : "⚠️ Média abaixo de 6."
+        }
+      </div>
+
+      <label style="margin-top:15px;">
+        Média desejada
+      </label>
+
+      <input
+        id="targetAverage"
+        type="number"
+        step="0.01"
+        value="6"
+        min="0"
+        max="10">
+
+      <button
+        class="secondary"
+        style="width:100%;margin-top:9px;"
+        onclick="calculateNextGrade(${average},${weightTotal})">
+        Calcular próxima nota
+      </button>
+
+      <div id="nextGradeResult"></div>
+
+    </div>
+  `;
+}
+
+function calculateNextGrade(
+  currentAverage,
+  totalWeight
+){
+
+  const target =
+    Number(
+      document.getElementById(
+        "targetAverage"
+      ).value
+    );
+
+  const box =
+    document.getElementById(
+      "nextGradeResult"
+    );
+
+  if(!Number.isFinite(target))
+    return;
+
+  const needed =
+    target*(totalWeight+1) -
+    currentAverage*totalWeight;
+
+  if(needed<=0){
+
+    box.innerHTML=`
+      <div style="margin-top:10px;color:#65d995;">
+        ✅ Você já atingiu essa média.
+      </div>
+    `;
+
+    return;
+  }
+
+  if(needed>10){
+
+    box.innerHTML=`
+      <div style="margin-top:10px;color:#ff9a9a;">
+        ❌ Precisaria de mais de 10.
+      </div>
+    `;
+
+    return;
+  }
+
+  box.innerHTML=`
+    <div style="margin-top:10px;color:#65d995;">
+      🎯 Precisa tirar
+      <strong>${needed.toFixed(2)}</strong>.
+    </div>
+  `;
+}
+
+
+/* =========================
+   PORCENTAGEM
+========================= */
+
+function calculatePercent(){
+
+  const x =
+    Number(
+      document.getElementById("percentX").value
+    );
+
+  const y =
+    Number(
+      document.getElementById("percentY").value
+    );
+
+  const box =
+    document.getElementById("percentResult");
+
+  if(!Number.isFinite(x)||!Number.isFinite(y)){
+
+    box.innerHTML=
+      `<div class="result">
+        Preencha os dois valores.
+      </div>`;
+
+    return;
+  }
+
+  const result =
+    y*x/100;
+
+  box.innerHTML=`
+    <div class="result">
+      <div class="big-result">
+        ${result}
+      </div>
+      ${x}% de ${y} = ${result}
+    </div>
+  `;
+}
+
+function calculateChange(direction){
+
+  const value =
+    Number(
+      document.getElementById(
+        "changeValue"
+      ).value
+    );
+
+  const percent =
+    Number(
+      document.getElementById(
+        "changePercent"
+      ).value
+    );
+
+  const box =
+    document.getElementById(
+      "changeResult"
+    );
+
+  if(!Number.isFinite(value)||
+     !Number.isFinite(percent)){
+
+    box.innerHTML=
+      `<div class="result">
+        Preencha os valores.
+      </div>`;
+
+    return;
+  }
+
+  const amount =
+    value*percent/100;
+
+  const result =
+    direction===1
+      ? value+amount
+      : value-amount;
+
+  box.innerHTML=`
+    <div class="result">
+
+      <div class="big-result">
+        ${result.toFixed(2)}
+      </div>
+
+      Valor original:
+      ${value.toFixed(2)}<br>
+
+      ${direction===1?"Aumento":"Desconto"}:
+      ${amount.toFixed(2)}
+
+    </div>
+  `;
+}
+
+
+/* =========================
+   JUROS
+========================= */
+
+function calculateInterest(){
+
+  const capital =
+    Number(
+      document.getElementById(
+        "interestCapital"
+      ).value
+    );
+
+  const rate =
+    Number(
+      document.getElementById(
+        "interestRate"
+      ).value
+    );
+
+  const time =
+    Number(
+      document.getElementById(
+        "interestTime"
+      ).value
+    );
+
+  const box =
+    document.getElementById(
+      "interestResult"
+    );
+
+  if(
+    !Number.isFinite(capital)||
+    !Number.isFinite(rate)||
+    !Number.isFinite(time)
+  ){
+
+    box.innerHTML=
+      `<div class="result">
+        Preencha todos os campos.
+      </div>`;
+
+    return;
+  }
+
+  const interest =
+    capital*rate/100*time;
+
+  const total =
+    capital+interest;
+
+  box.innerHTML=`
+    <div class="result">
+
+      <div class="big-result">
+        R$ ${total.toFixed(2)}
+      </div>
+
+      Juros:
+      R$ ${interest.toFixed(2)}<br>
+
+      Montante:
+      R$ ${total.toFixed(2)}
+
+    </div>
+  `;
+}
+
+
+/* =========================
+   IDADE
+========================= */
+
+function calculateAge(){
+
+  const value =
+    document.getElementById(
+      "birthDate"
+    ).value;
+
+  const box =
+    document.getElementById(
+      "ageResult"
+    );
+
+  if(!value){
+
+    box.innerHTML=
+      `<div class="result">
+        Escolha uma data.
+      </div>`;
+
+    return;
+  }
+
+  const birth =
+    new Date(value+"T00:00:00");
+
+  const today =
+    new Date();
+
+  let years =
+    today.getFullYear()-
+    birth.getFullYear();
+
+  let months =
+    today.getMonth()-
+    birth.getMonth();
+
+  let days =
+    today.getDate()-
+    birth.getDate();
+
+  if(days<0){
+
+    months--;
+
+    const previousMonth =
+      new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        0
+      );
+
+    days += previousMonth.getDate();
+  }
+
+  if(months<0){
+
+    years--;
+    months+=12;
+  }
+
+  box.innerHTML=`
+    <div class="result">
+
+      <div class="big-result">
+        ${years} anos
+      </div>
+
+      ${months} meses e ${days} dias.
+
+    </div>
+  `;
+}
+
+
+/* =========================
+   NÚMEROS
+========================= */
+
+function generateNumber(){
+
+  let min =
+    Number(
+      document.getElementById(
+        "numberMin"
+      ).value
+    );
+
+  let max =
+    Number(
+      document.getElementById(
+        "numberMax"
+      ).value
+    );
+
+  const box =
+    document.getElementById(
+      "numberResult"
+    );
+
+  if(!Number.isFinite(min)||
+     !Number.isFinite(max)){
+
+    box.textContent=
+      "Digite os limites.";
+
+    return;
+  }
+
+  if(min>max){
+
+    [min,max]=[max,min];
+  }
+
+  const number =
+    Math.floor(
+      Math.random()*
+      (max-min+1)
+    )+min;
+
+  box.textContent=number;
+}
+
+
+/* =========================
+   TAREFAS
+========================= */
+
+function addTask(){
+
+  const input =
+    document.getElementById(
+      "taskInput"
+    );
+
+  const text =
+    input.value.trim();
+
+  if(!text) return;
+
+  state.tasks.unshift({
+
+    id:Date.now(),
+
+    text:text,
+
+    done:false
+
+  });
+
+  input.value="";
+
+  save();
+  renderTasks();
+}
+
+function toggleTask(id){
+
+  const task =
+    state.tasks.find(
+      t=>t.id===id
+    );
+
+  if(!task) return;
+
+  task.done=!task.done;
+
+  save();
+  renderTasks();
+}
+
+function deleteTask(id){
+
+  state.tasks =
+    state.tasks.filter(
+      t=>t.id!==id
+    );
+
+  save();
+  renderTasks();
+}
+
+function renderTasks(){
+
+  const box =
+    document.getElementById(
+      "taskList"
+    );
+
+  if(!state.tasks.length){
+
+    box.innerHTML=
+      `<div class="empty">
+        Nenhuma tarefa.
+      </div>`;
+
+    return;
+  }
+
+  box.innerHTML=
+    state.tasks.map(task=>`
+
+      <div class="task-item ${
+        task.done?"done":""
+      }">
+
+        <input
+          class="task-check"
+          type="checkbox"
+          ${task.done?"checked":""}
+          onchange="toggleTask(${task.id})">
+
+        <div class="task-text">
+          ${escapeHTML(task.text)}
+        </div>
+
+        <button
+          class="small-btn"
+          onclick="deleteTask(${task.id})">
+          Excluir
+        </button>
+
+      </div>
+
+    `).join("");
+}
+
+
+/* =========================
+   NOTAS
+========================= */
+
+function saveNote(){
+
+  const title =
+    document.getElementById(
+      "noteTitle"
+    ).value.trim();
+
+  const content =
+    document.getElementById(
+      "noteContent"
+    ).value.trim();
+
+  if(!title&&!content)
+    return;
+
+  state.notes.unshift({
+
+    id:Date.now(),
+
+    title:
+      title||"Sem título",
+
+    content:content,
+
+    date:
+      new Date().toLocaleDateString(
+        "pt-BR"
+      )
+
+  });
+
+  document.getElementById(
+    "noteTitle"
+  ).value="";
+
+  document.getElementById(
+    "noteContent"
+  ).value="";
+
+  save();
+  renderNotes();
+}
+
+function deleteNote(id){
+
+  state.notes =
+    state.notes.filter(
+      n=>n.id!==id
+    );
+
+  save();
+  renderNotes();
+}
+
+function renderNotes(){
+
+  const box =
+    document.getElementById(
+      "notesList"
+    );
+
+  if(!state.notes.length){
+
+    box.innerHTML=
+      `<div class="empty">
+        Nenhuma nota criada.
+      </div>`;
+
+    return;
+  }
+
+  box.innerHTML=
+    state.notes.map(note=>`
+
+      <div class="note-item">
+
+        <div class="note-title">
+          ${escapeHTML(note.title)}
+        </div>
+
+        <div class="note-preview">
+          ${escapeHTML(note.content)}
+        </div>
+
+        <div style="
+          display:flex;
+          justify-content:space-between;
+          margin-top:10px;
+          align-items:center;
+        ">
+
+          <span style="
+            color:#617087;
+            font-size:10px;
+          ">
+            ${note.date}
+          </span>
+
+          <button
+            class="small-btn"
+            onclick="deleteNote(${note.id})">
+            Excluir
+          </button>
+
+        </div>
+
+      </div>
+
+    `).join("");
+}
+
+
+/* =========================
+   CONVERSOR
+========================= */
+
+const conversionData={
+
+  length:{
+    units:{
+      "Metro":1,
+      "Quilômetro":1000,
+      "Centímetro":0.01,
+      "Milímetro":0.001
+    }
+  },
+
+  mass:{
+    units:{
+      "Quilograma":1,
+      "Grama":0.001,
+      "Miligrama":0.000001,
+      "Tonelada":1000
+    }
+  },
+
+  time:{
+    units:{
+      "Segundo":1,
+      "Minuto":60,
+      "Hora":3600,
+      "Dia":86400
+    }
+  },
+
+  temperature:{
+    units:{
+      "Celsius":"C",
+      "Fahrenheit":"F",
+      "Kelvin":"K"
+    }
+  }
+
+};
+
+function updateConverter(){
+
+  const type =
+    document.getElementById(
+      "conversionType"
+    ).value;
+
+  const from =
+    document.getElementById(
+      "convertFrom"
+    );
+
+  const to =
+    document.getElementById(
+      "convertTo"
+    );
+
+  from.innerHTML="";
+  to.innerHTML="";
+
+  const units =
+    Object.keys(
+      conversionData[type].units
+    );
+
+  units.forEach(unit=>{
+
+    from.innerHTML +=
+      `<option value="${unit}">
+        ${unit}
+      </option>`;
+
+    to.innerHTML +=
+      `<option value="${unit}">
+        ${unit}
+      </option>`;
+
+  });
+
+  if(units.length>1)
+    to.selectedIndex=1;
+}
+
+function convert(){
+
+  const type =
+    document.getElementById(
+      "conversionType"
+    ).value;
+
+  const value =
+    Number(
+      document.getElementById(
+        "convertValue"
+      ).value
+    );
+
+  const from =
+    document.getElementById(
+      "convertFrom"
+    ).value;
+
+  const to =
+    document.getElementById(
+      "convertTo"
+    ).value;
+
+  const box =
+    document.getElementById(
+      "convertResult"
+    );
+
+  if(!Number.isFinite(value)){
+
+    box.innerHTML=
+      `<div class="result">
+        Digite um valor.
+      </div>`;
+
+    return;
+  }
+
+  let result;
+
+  if(type==="temperature"){
+
+    result=
+      convertTemperature(
+        value,
+        conversionData.temperature.units[from],
+        conversionData.temperature.units[to]
+      );
+
+  }else{
+
+    const units =
+      conversionData[type].units;
+
+    const base =
+      value*units[from];
+
+    result =
+      base/units[to];
+  }
+
+  box.innerHTML=`
+    <div class="result">
+
+      <div class="big-result">
+        ${Number(result.toFixed(8))}
+      </div>
+
+      ${value} ${from} =
+      ${Number(result.toFixed(8))} ${to}
+
+    </div>
+  `;
+}
+
+function convertTemperature(value,from,to){
+
+  let celsius;
+
+  if(from==="C")
+    celsius=value;
+
+  else if(from==="F")
+    celsius=(value-32)*5/9;
+
+  else
+    celsius=value-273.15;
+
+  if(to==="C")
+    return celsius;
+
+  if(to==="F")
+    return celsius*9/5+32;
+
+  return celsius+273.15;
+}
+
+
+/* =========================
+   CRONÔMETRO
+========================= */
+
+let seconds=0;
+let timer=null;
+
+function formatTime(total){
+
+  const hours =
+    Math.floor(total/3600);
+
+  const minutes =
+    Math.floor(
+      (total%3600)/60
+    );
+
+  const secs =
+    total%60;
+
+  return [
+    String(hours).padStart(2,"0"),
+    String(minutes).padStart(2,"0"),
+    String(secs).padStart(2,"0")
+  ].join(":");
+}
+
+function renderTime(){
+
+  document.getElementById(
+    "time"
+  ).textContent=
+    formatTime(seconds);
+}
+
+function updateTimerButton(){
+
+  document.getElementById(
+    "timerToggle"
+  ).textContent=
+    timer
+      ? "Pausar"
+      : "Iniciar";
+}
+
+function startTimer(){
+
+  if(timer) return;
+
+  timer=
+    setInterval(()=>{
+
+      seconds++;
+
+      renderTime();
+
+    },1000);
+
+  updateTimerButton();
+}
+
+function pauseTimer(){
+
+  if(timer){
+
+    clearInterval(timer);
+
+    timer=null;
+  }
+
+  updateTimerButton();
+}
+
+function toggleTimer(){
+
+  if(timer)
+    pauseTimer();
+  else
+    startTimer();
+}
+
+function resetTimer(){
+
+  pauseTimer();
+
+  seconds=0;
+
+  renderTime();
+}
+
+
+/* =========================
+   SEGURANÇA
+========================= */
+
+function escapeHTML(text){
+
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+/* =========================
+   INICIAR APP
+========================= */
+
+try{
+
+  renderHistory();
+  renderTasks();
+  renderNotes();
+
+  addGrade();
+  addGrade();
+
+  updateConverter();
+
+  renderTime();
+
+  updateTimerButton();
+
+  updateStats();
+
+}catch(error){
+
+  console.error(
+    "Erro ao iniciar KitPro:",
+    error
+  );
+}
+
+</script>
+
+</body>
+</html>
